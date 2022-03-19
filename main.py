@@ -5,21 +5,21 @@ import time
 import os
 
 
-auth = ''
-channelID = ''
+auth = 'NzAyMTI0MzEyNjgwODU3NjIx.YigwMQ.qLUTpJWrEKTz5S0Tb_uB7SkCTbY'
+channelID = '954290890204135484'
 headers = {
     'authorization': ''
 }
 rate = [
+    "Super",
     "Common",
     "Uncommon",
     "Rare",
-    "Super",
     "Legendary",
     "Shiny"
 ]
 command = [
-    "pb",
+    "ub",
     "pb",
     "pb",
     "gb",
@@ -102,7 +102,7 @@ def start():
             with open("msg.txt", "w", encoding="utf-8") as f:
                 f.write(str_msg)
             f.close()
-            time.sleep(8)
+            time.sleep(6)
 
             # 
             for i in range(0, len(rate)):
