@@ -1,3 +1,4 @@
+import random
 import traceback
 import requests
 import json
@@ -5,8 +6,8 @@ import time
 import os
 
 
-auth = 'NzAyMTI0MzEyNjgwODU3NjIx.YigwMQ.qLUTpJWrEKTz5S0Tb_uB7SkCTbY'
-channelID = '954290890204135484'
+auth = ''
+channelID = ''
 headers = {
     'authorization': ''
 }
@@ -38,10 +39,10 @@ data = {
 }
 #requests.post(f'https://discord.com/api/v9/channels/{channelid}/messages', data=purge ,headers=headers)
 
+spam = []
 
-def send_request(content, channelID=channelID, auth=auth):
+def send_request(content, channelID=channelID, headers=headers):
     try:
-        headers['authorization'] = auth
         data['content'] = content
         req = requests.post(
             f'https://discord.com/api/v9/channels/{channelID}/messages', data=data, headers=headers)
@@ -57,7 +58,7 @@ def send_request(content, channelID=channelID, auth=auth):
         os.system('pause')
 
 
-def checkCaptcha():
+def checkCaptcha(channelID=channelID, headers=headers):
     try:
         rr = requests.get(
             f'https://discord.com/api/v9/channels/{channelID}/messages', headers=headers)
@@ -89,8 +90,12 @@ def checkCaptcha():
         exit(1)
 
 
-def start():
+def start(channelID=channelID, headers=headers):
     try:
+        send_request(";p",channelID, headers)
+        time.sleep(2)
+
+
         req = requests.get(
             f'https://discord.com/api/v9/channels/{channelID}/messages', headers=headers)
 
@@ -102,18 +107,24 @@ def start():
             with open("msg.txt", "w", encoding="utf-8") as f:
                 f.write(str_msg)
             f.close()
-            time.sleep(6)
+            time.sleep(8)
 
             # 
             for i in range(0, len(rate)):
                 if rate[i] in str_msg :
                     print(rate[i])
-                    send_request(command[i])
+                    send_request(command[i],channelID, headers)
                     break
             time.sleep(10)
-            send_request(";p")
-            time.sleep(5)
 
+            send_request(random.choice(spam),channelID, headers)
+            time.sleep(3)
+            send_request(random.choice(spam),channelID, headers)
+            time.sleep(3)
+            send_request(random.choice(spam),channelID, headers)
+            time.sleep(3)
+            send_request(random.choice(spam),channelID, headers)
+            time.sleep(5)
     except Exception as e:
         print("Error start request :", e.args)
         traceback.print_stack()
@@ -125,17 +136,32 @@ def start():
 def main():
     global auth
     global channelID
+    global spam
     # print('Input your Discord Token:')
     # auth = input()
     # print('Input channelID to start auto:')
     # channelID = input()
-    headers['authorization'] = auth
+    try:
+        file = open('config.json', 'r', encoding="utf-8")
+        data = json.load(file);
+        auth = data['auth'];
+        channelID = data['channelID'];
+        spam = data['spam'];
 
-    send_request(';p')
+    except Exception as e:
+        print("Error read file :", e.args)
+        traceback.print_stack()
+        os.system('pause')
+        exit(1)
+    headers['authorization'] = auth
+    # print(headers)
+    # print(channelID)
+    # print(spam)
+    # send_request(";p",channelID, headers)
     captcha = 0
     while captcha == 0:
-        start()
-        checkCaptcha()
+        start(channelID, headers)
+        checkCaptcha(channelID, headers)
 
 
 main()
