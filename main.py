@@ -107,7 +107,7 @@ def start(channelID=channelID, headers=headers):
             with open("msg.txt", "w", encoding="utf-8") as f:
                 f.write(str_msg)
             f.close()
-            time.sleep(8)
+            time.sleep(3)
 
             # 
             for i in range(0, len(rate)):
@@ -117,6 +117,10 @@ def start(channelID=channelID, headers=headers):
                     break
             time.sleep(10)
 
+            send_request(random.choice(spam),channelID, headers)
+            time.sleep(3)
+            send_request(random.choice(spam),channelID, headers)
+            time.sleep(3)
             send_request(random.choice(spam),channelID, headers)
             time.sleep(3)
             send_request(random.choice(spam),channelID, headers)

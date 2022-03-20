@@ -1,6 +1,6 @@
-Rare (27% encounter rate)
-Rare streak: 1
+Common (40% encounter rate)
+Common streak: 1
 
 ═════ Balls left ═════
 Pokeballs : 0 | Ultraballs: 3
-Greatballs: 1 | Masterballs: 0
+Greatballs: 0 | Masterballs: 0
