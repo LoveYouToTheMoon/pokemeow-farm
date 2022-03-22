@@ -12,20 +12,20 @@ headers = {
     'authorization': ''
 }
 rate = [
+    "Shiny"
+    "Legendary",
     "Super",
     "Common",
     "Uncommon",
     "Rare",
-    "Legendary",
-    "Shiny"
 ]
 command = [
+    "prb"
+    "ub",
     "ub",
     "pb",
     "pb",
     "gb",
-    "ub",
-    "prb"
 ]
 ball = [
     "Pokeballs",
@@ -124,10 +124,6 @@ def start(channelID=channelID, headers=headers):
             send_request(random.choice(spam),channelID, headers)
             time.sleep(3)
             send_request(random.choice(spam),channelID, headers)
-            time.sleep(3)
-            send_request(random.choice(spam),channelID, headers)
-            time.sleep(3)
-            send_request(random.choice(spam),channelID, headers)
             time.sleep(5)
     except Exception as e:
         print("Error start request :", e.args)
@@ -163,9 +159,20 @@ def main():
     # print(spam)
     # send_request(";p",channelID, headers)
     captcha = 0
+    count = 0
+    count_sleep = 0
     while captcha == 0:
+        count += 1
+        count_sleep +=1
+        if( count > 3):
+            send_request(";q",channelID, headers)
+            time.sleep(50)
+            count = 0
+        if(count_sleep > 10):
+            time.sleep(300)
+            count_sleep = 0
         start(channelID, headers)
         checkCaptcha(channelID, headers)
-
+        
 
 main()
